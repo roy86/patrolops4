@@ -1,0 +1,31 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Steam\SteamApps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, missionFlow">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"START",0,250,325.000000,475.000000,425.000000,525.000000,0.000000,"START"};
+globals[] = {0.000000,0,0,0,0,640,480,1,2,6316128,1,-11.303802,782.352722,807.588867,250.927063,1296,909,1};
+window[] = {2,-1,-1,-1,-1,919,182,1442,182,3,1314};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "missionFlow";
+        class States
+        {
+                /*%FSM<STATE "START">*/
+                class START
+                {
+                        name = "START";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="START";
+        finalStates[] =
+        {
+        };
+};
+/*%FSM</COMPILE>*/

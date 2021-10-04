@@ -1,0 +1,151 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Steam\SteamApps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, PO4_Mission_Start_Player">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"START",0,4346,250.000000,350.000000,350.000000,400.000000,0.000000,"START"};
+item1[] = {"noInterface",4,218,400.000000,350.000000,500.000000,400.000000,0.000000,"noInterface"};
+item2[] = {"END1",1,250,550.000000,350.000000,650.000000,400.000000,0.000000,"END1"};
+item3[] = {"ready",4,218,250.000000,450.000000,350.000000,500.000000,0.000000,"ready"};
+item4[] = {"WeaponCheck",2,250,250.000000,550.000000,350.000000,600.000000,0.000000,"WeaponCheck"};
+item5[] = {"noWeapon",4,218,100.000000,550.000000,200.000000,600.000000,0.000000,"noWeapon"};
+item6[] = {"inBase",4,218,400.000000,550.000000,500.000000,600.000000,0.000000,"inBase"};
+item7[] = {"leftBase",4,218,250.000000,650.000000,350.000000,700.000000,0.000000,"leftBase"};
+item8[] = {"END2",1,250,550.000000,650.000000,650.000000,700.000000,0.000000,"END2"};
+link0[] = {0,1};
+link1[] = {0,3};
+link2[] = {1,2};
+link3[] = {3,4};
+link4[] = {4,5};
+link5[] = {4,6};
+link6[] = {4,7};
+link7[] = {5,4};
+link8[] = {6,4};
+link9[] = {7,8};
+globals[] = {0.000000,0,0,0,0,640,480,1,16,6316128,1,-11.303802,782.352722,807.588867,250.927063,1296,909,1};
+window[] = {2,-1,-1,-1,-1,763,1946,3206,26,3,1314};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "PO4_Mission_Start_Player";
+        class States
+        {
+                /*%FSM<STATE "START">*/
+                class START
+                {
+                        name = "START";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"private _safeArea = [""MPSF_Param_BaseGriefProtection"",0] call BIS_fnc_getParamValue;" \n
+                         "if (_safeArea isEqualTo 0) then {_safeArea = 150};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "ready">*/
+                                class ready
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="WeaponCheck";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(isNull ([] call BIS_fnc_displayMission))"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "noInterface">*/
+                                class noInterface
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="END1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!hasInterface"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "END1">*/
+                class END1
+                {
+                        name = "END1";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "WeaponCheck">*/
+                class WeaponCheck
+                {
+                        name = "WeaponCheck";
+                        itemno = 4;
+                        init = /*%FSM<STATEINIT""">*/"_respawnPositions = ([player] call BIS_fnc_getRespawnPositions) + ([side player] call BIS_fnc_getRespawnMarkers);" \n
+                         "" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "inBase">*/
+                                class inBase
+                                {
+                                        itemno = 6;
+                                        priority = 0.000000;
+                                        to="WeaponCheck";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"{player distance2D (_x call BIS_fnc_position) < _safeArea} count _respawnPositions > 0"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"private _drawPos2 = getMarkerPos ""marker_gate"";" \n
+                                         "drawIcon3D [""\a3\ui_f\data\IGUI\Cfg\simpleTasks\types\move3_ca.paa"",[1,0.66,0,1],_drawPos2,1.0,1.0,0,"""",0];" \n
+                                         "drawIcon3D [""#(argb,8,8,3)color(0,0,0,0.8)"",[1,1,1,1],_drawPos2,0,-3,0,""BEGIN PATROL"",2,0.04,""RobotoCondensed""];"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "leftBase">*/
+                                class leftBase
+                                {
+                                        itemno = 7;
+                                        priority = 0.000000;
+                                        to="END2";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"({player distance2D (_x call BIS_fnc_position) < _safeArea} count _respawnPositions) isEqualto 0"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "noWeapon">*/
+                                class noWeapon
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="WeaponCheck";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"currentWeapon player isEqualTo """""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"private _drawPos = getMarkerPos ""marker_gear"";" \n
+                                         "drawIcon3D [""\a3\ui_f\data\IGUI\Cfg\simpleTasks\types\move2_ca.paa"",[1,0.66,0,1],_drawPos,1.0,1.0,0,"""",0];" \n
+                                         "drawIcon3D [""#(argb,8,8,3)color(0,0,0,0.8)"",[1,1,1,1],_drawPos,0,-3,0,""GEAR UP"",2,0.04,""RobotoCondensed""];"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "END2">*/
+                class END2
+                {
+                        name = "END2";
+                        itemno = 8;
+                        init = /*%FSM<STATEINIT""">*/"if (leader group player isEqualTo player) then {" \n
+                         "	[""onPO4StartLeftBase"",[player],0] call MPSF_fnc_triggerEventHandler;" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="START";
+        finalStates[] =
+        {
+                "END1",
+                "END2",
+        };
+};
+/*%FSM</COMPILE>*/

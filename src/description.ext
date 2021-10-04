@@ -1,0 +1,75 @@
+#include "roy86.configuration.mission.hpp"
+
+// BIS Configuration
+allowFunctionsLog = 1; // Debug TODO: REMOVE FOR MP
+enableDebugConsole = 2; // Debug TODO: REMOVE FOR MP
+
+// Default to support MPSF RespawnMP
+respawn = "BASE";
+respawnTemplates[] = {"MenuPosition","Counter", "Wave"/*,"RespawnMP"*/};
+respawnButton = 0;
+respawnDelay = 10;
+respawnOnStart = -1;
+respawnVehicleDelay = 10;
+
+// Battlefield Clearance
+corpseManagerMode = 1;
+corpseLimit = 15;
+corpseRemovalMinTime = 60;
+corpseRemovalMaxTime = 120;
+wreckManagerMode = 1;
+wreckLimit = 15;
+wreckRemovalMinTime = 60;
+wreckRemovalMaxTime = 120;
+minPlayerDistance = 500;
+
+// Header
+class Header {
+	gameType = Coop;
+	//gameType = "patops";
+	minPlayers = 1;
+	maxPlayers = 48;
+};
+
+class CfgRemoteExec {
+	class Functions {
+		class BIS_fnc_callscriptedeventhandler { jip = 0; }; // Required for MPSF
+	};
+};
+
+#include "framework\roy86.mpsf.common.hpp"
+#include "modules\roy86.modules.common.hpp"
+#include "tasks\roy86.tasks.common.hpp"
+#include "scripts\roy86.scripts.common.hpp"
+
+class CfgFunctions {
+    #include "framework\roy86.mpsf.functions.hpp"
+    #include "modules\roy86.modules.functions.hpp"
+    #include "tasks\roy86.tasks.functions.hpp"
+	#include "scripts\roy86.scripts.functions.hpp"
+};
+
+class Params {
+    #include "framework\roy86.mpsf.params.hpp"
+    #include "modules\roy86.modules.params.hpp"
+};
+
+class CfgRoles: CfgVirtualArmoury {};
+
+class CfgNotifications {
+	#include "framework\roy86.mpsf.notifications.hpp"
+	#include "modules\roy86.modules.notifications.hpp"
+};
+
+class CfgHints {
+	#include "modules\roy86.modules.hints.hpp"
+};
+
+/* class CfgRespawnTemplates {
+	class RespawnMP {
+		onPlayerKilled = "MPSF_fnc_RespawnEH";
+		onPlayerRespawn = "MPSF_fnc_RespawnEH";
+		respawnTypes[] = {2,3};
+		respawnDelay = 1e9;
+	};
+}; */

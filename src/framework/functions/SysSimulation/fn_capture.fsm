@@ -1,0 +1,334 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Steam\SteamApps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, MPSF_Capture">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"START",0,250,-25.000000,-250.000000,75.000000,-200.000000,0.000000,"START"};
+item1[] = {"SetSurrender",4,218,-25.000000,-150.000000,75.000000,-100.000000,0.000000,"SetSurrender"};
+item2[] = {"Surrended",2,250,-25.000000,-50.000000,75.000000,0.000000,0.000000,"Surrended"};
+item3[] = {"setDetained",4,218,-25.000000,50.000000,75.000000,100.000000,0.000000,"setDetained"};
+item4[] = {"Detained",2,250,-25.000000,150.000000,75.000000,200.000000,0.000000,"Detained"};
+item5[] = {"setMove",4,218,-25.000000,250.000000,75.000000,300.000000,0.000000,"setMove"};
+item6[] = {"setFree",4,218,125.000000,150.000000,225.000000,200.000000,0.000000,"setFree"};
+item7[] = {"joinSquad",4,218,-175.000000,150.000000,-75.000000,200.000000,0.000000,"joinSquad"};
+item8[] = {"joinedSquad",2,250,-325.000000,150.000000,-225.000000,200.000000,0.000000,"joinedSquad"};
+item9[] = {"moving",2,250,-25.000000,350.000000,75.000000,400.000000,0.000000,"moving"};
+item10[] = {"updateMoving",4,218,-25.000000,450.000000,75.000000,500.000000,1.000000,"updateMoving"};
+item11[] = {"getIn",4,218,-175.000000,250.000000,-75.000000,300.000000,1.000000,"getIn"};
+item12[] = {"stopMoving",4,218,125.000000,250.000000,225.000000,300.000000,2.000000,"stopMoving"};
+item13[] = {"Exit1",1,250,275.000000,150.000000,375.000000,200.000000,0.000000,"Exit1"};
+item14[] = {"inVehicle",2,250,-175.000000,350.000000,-75.000000,400.000000,0.000000,"inVehicle"};
+item15[] = {"getOut",4,218,-325.000000,250.000000,-225.000000,300.000000,0.000000,"getOut"};
+item16[] = {"leaveSquad",4,218,-175.000000,50.000000,-75.000000,100.000000,0.000000,"leaveSquad"};
+item17[] = {"deadStart",4,218,125.000000,50.000000,225.000000,100.000000,0.000000,"deadStart"};
+link0[] = {0,1};
+link1[] = {0,17};
+link2[] = {1,2};
+link3[] = {2,3};
+link4[] = {2,17};
+link5[] = {3,4};
+link6[] = {4,5};
+link7[] = {4,6};
+link8[] = {4,7};
+link9[] = {4,11};
+link10[] = {4,17};
+link11[] = {5,9};
+link12[] = {6,13};
+link13[] = {7,8};
+link14[] = {8,16};
+link15[] = {8,17};
+link16[] = {9,10};
+link17[] = {9,12};
+link18[] = {9,17};
+link19[] = {10,9};
+link20[] = {11,14};
+link21[] = {12,4};
+link22[] = {14,15};
+link23[] = {14,17};
+link24[] = {15,4};
+link25[] = {16,4};
+link26[] = {17,13};
+globals[] = {0.000000,0,0,0,0,640,480,1,567749668,6316128,1,-654.110718,568.595398,560.620850,-164.472198,1032,612,1};
+window[] = {0,-1,-1,-1,-1,837,80,1520,78,1,1050};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "MPSF_Capture";
+        class States
+        {
+                /*%FSM<STATE "START">*/
+                class START
+                {
+                        name = "START";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"params [[""_target"",objNull,[objNull]]];"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "deadStart">*/
+                                class deadStart
+                                {
+                                        itemno = 17;
+                                        priority = 0.000000;
+                                        to="Exit1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _target"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "SetSurrender">*/
+                                class SetSurrender
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="Surrended";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"alive _target"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Surrended">*/
+                class Surrended
+                {
+                        name = "Surrended";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/"[""setSurrender"",[_target]] call MPSF_fnc_simulCapture;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "deadStart">*/
+                                class deadStart
+                                {
+                                        itemno = 17;
+                                        priority = 0.000000;
+                                        to="Exit1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _target"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "setDetained">*/
+                                class setDetained
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="Detained";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"alive _target && (_target getVariable ['CaptureState','']) == 'Detained'"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Detained">*/
+                class Detained
+                {
+                        name = "Detained";
+                        itemno = 4;
+                        init = /*%FSM<STATEINIT""">*/"[""setDetained"",[_target]] call MPSF_fnc_simulCapture;" \n
+                         "" \n
+                         "_target removeWeaponGlobal secondaryWeapon _target;" \n
+                         "_target removeWeaponGlobal handgunWeapon _target;" \n
+                         "_target removeWeaponGlobal primaryWeapon _target;" \n
+                         "detach _target;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "getIn">*/
+                                class getIn
+                                {
+                                        itemno = 11;
+                                        priority = 1.000000;
+                                        to="inVehicle";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(vehicle _target isEqualTo _target)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "joinSquad">*/
+                                class joinSquad
+                                {
+                                        itemno = 7;
+                                        priority = 0.000000;
+                                        to="joinedSquad";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"count units group _target > 1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "setFree">*/
+                                class setFree
+                                {
+                                        itemno = 6;
+                                        priority = 0.000000;
+                                        to="Exit1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"alive _target && (_target getVariable ['CaptureState',''] == 'Free');"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "deadStart">*/
+                                class deadStart
+                                {
+                                        itemno = 17;
+                                        priority = 0.000000;
+                                        to="Exit1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _target"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "setMove">*/
+                                class setMove
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="moving";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"alive _target && (_target getVariable ['CaptureState',''] == 'Moving');"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "joinedSquad">*/
+                class joinedSquad
+                {
+                        name = "joinedSquad";
+                        itemno = 8;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "deadStart">*/
+                                class deadStart
+                                {
+                                        itemno = 17;
+                                        priority = 0.000000;
+                                        to="Exit1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _target"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "leaveSquad">*/
+                                class leaveSquad
+                                {
+                                        itemno = 16;
+                                        priority = 0.000000;
+                                        to="Detained";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"count units group _target == 1"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "moving">*/
+                class moving
+                {
+                        name = "moving";
+                        itemno = 9;
+                        init = /*%FSM<STATEINIT""">*/"[""setMoved"",[_target]] call MPSF_fnc_simulCapture;" \n
+                         "" \n
+                         "if !(stance (_target getVariable [""movingPlayer"",objNull]) isEqualTo ""STAND"") then {" \n
+                         "	detach _target;" \n
+                         "	_target setVariable [""CaptureState"",'Detained',true]" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "stopMoving">*/
+                                class stopMoving
+                                {
+                                        itemno = 12;
+                                        priority = 2.000000;
+                                        to="Detained";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"alive _target && (_target getVariable ['CaptureState','']) == 'Detained'"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "updateMoving">*/
+                                class updateMoving
+                                {
+                                        itemno = 10;
+                                        priority = 1.000000;
+                                        to="moving";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(isNull attachedTo _target) && alive _target"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "deadStart">*/
+                                class deadStart
+                                {
+                                        itemno = 17;
+                                        priority = 0.000000;
+                                        to="Exit1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _target"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Exit1">*/
+                class Exit1
+                {
+                        name = "Exit1";
+                        itemno = 13;
+                        init = /*%FSM<STATEINIT""">*/"detach _target;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "inVehicle">*/
+                class inVehicle
+                {
+                        name = "inVehicle";
+                        itemno = 14;
+                        init = /*%FSM<STATEINIT""">*/"hint ""Loaded"";"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "deadStart">*/
+                                class deadStart
+                                {
+                                        itemno = 17;
+                                        priority = 0.000000;
+                                        to="Exit1";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive _target"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "getOut">*/
+                                class getOut
+                                {
+                                        itemno = 15;
+                                        priority = 0.000000;
+                                        to="Detained";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(vehicle _target isEqualTo _target)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="START";
+        finalStates[] =
+        {
+                "Exit1",
+        };
+};
+/*%FSM</COMPILE>*/
